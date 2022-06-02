@@ -132,9 +132,9 @@ func main() {
 
 	// check number Odd or Even
 
-	var number int
-	fmt.Print("Please input number ")
-	fmt.Scanf("%d", &number)
+	// var number int
+	// fmt.Print("Please input number ")
+	// fmt.Scanf("%d", &number)
 
 	// if number%2 == 0 {
 	// 	fmt.Println(number, "is even number")
@@ -142,12 +142,29 @@ func main() {
 	// 	fmt.Println(number, "is odd number")
 	// }
 
-	if number == 1 {
-		fmt.Println("Open an account")
-	} else if number == 2 {
-		fmt.Println("With draw money")
-	} else {
-		fmt.Println("Please input just 1 or 2.")
-	}
+	// if number == 1 {
+	// 	fmt.Println("Open an account")
+	// } else if number == 2 {
+	// 	fmt.Println("With draw money")
+	// } else {
+	// 	fmt.Println("Please input just 1 or 2.")
+	// }
 
+	// ---- Switch ... Case ----
+
+	// var number int
+	// fmt.Print("Please input number . ")
+	// fmt.Scanf("%d", &number)
+
+	// switch number {
+	// case 1:
+	// 	fmt.Println("Open an account")
+
+	// case 2:
+	// 	fmt.Println("With draw money")
+	// default:
+	// 	fmt.Println("Please input just 1 or 2")
+	// }
+
+	// ---- Array ----
 }

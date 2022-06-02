@@ -3,10 +3,10 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Hello P'Kong")
+	fmt.Println("Hello World")
 	fmt.Println("How are you?")
 
-	//manual type declaration
+	// ----- Manual type declaration -----
 
 	var name string = "New"
 	var age int = 25
@@ -17,7 +17,7 @@ func main() {
 	fmt.Println("My score are ", score, "point")
 	fmt.Println("Pass exam : ", isPass)
 
-	//type inference
+	// ---- Type inference ----
 
 	fmt.Println("\n")
 
@@ -37,13 +37,13 @@ func main() {
 	fmt.Println(name3)
 
 	fmt.Println("\n")
-	//constant
+	// ---- Constant ----
 
 	const name4 string = "Chanew"
 	fmt.Println(name4)
 
 	fmt.Println("\n")
-	//check type
+	// ---- Check type ----
 	name5 := "New"
 	age5 := 25
 	score5 := 95.8
@@ -77,14 +77,41 @@ func main() {
 
 	fmt.Println("\n")
 
-	// compare operation
-
+	// ---- Compare operation ----
 	fmt.Println("Equal or not : ", num1 == num2)
 	fmt.Println("Not Equal or not : ", num1 != num2)
 	fmt.Println(num1, ">", num2, "=", num1 > num2)
 	fmt.Println(num1, "<", num2, "=", num1 < num2)
 	fmt.Println(num1, ">=", num2, "=", num1 >= num2)
 	fmt.Println(num1, "<=", num2, "=", num1 <= num2)
+
+	// ---- Get values from keyboard with Scanf ----
+
+	// Scanf scans text read from standard input, storing successive space-separated values into successive arguments as determined by the format. It returns the number of items successfully scanned. If that is less than the number of arguments, err will report why. Newlines in the input must match newlines in the format. The one exception: the verb %c always scans the next rune in the input, even if it is a space (or tab etc.) or newline.
+
+	// Syntax => fmt.Scanf(string_format, address_list)
+	// func Scanf(format string, a ...any) (n int, err error)
+
+	// string => %s
+	// integer => %d
+	// float => %f
+
+	var nameS string
+	fmt.Print("Please input student name. ")
+	fmt.Scanf("%s", &nameS)
+
+	fmt.Println("Hello ", nameS)
+
+	// var scoreS int
+	// fmt.Print("Please input student score. ")
+	// fmt.Scanf("%d", &scoreS)
+
+	var scoreS float32
+	fmt.Print("Please input student score. ")
+	fmt.Scanf("%f", &scoreS)
+
+	fmt.Println(nameS, "has scores + mentality scores is ", scoreS+10, "point.")
+
 }
 
 // golang is static type . Variable must has value.

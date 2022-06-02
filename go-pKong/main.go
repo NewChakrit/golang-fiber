@@ -74,6 +74,17 @@ func main() {
 	fmt.Println("Multiply = ", num1*num2)
 	fmt.Println("Quotient = ", num1/num2)
 	fmt.Println("Fraction = ", num1%num2)
+
+	fmt.Println("\n")
+
+	// compare operation
+
+	fmt.Println("Equal or not : ", num1 == num2)
+	fmt.Println("Not Equal or not : ", num1 != num2)
+	fmt.Println(num1, ">", num2, "=", num1 > num2)
+	fmt.Println(num1, "<", num2, "=", num1 < num2)
+	fmt.Println(num1, ">=", num2, "=", num1 >= num2)
+	fmt.Println(num1, "<=", num2, "=", num1 <= num2)
 }
 
 // golang is static type . Variable must has value.

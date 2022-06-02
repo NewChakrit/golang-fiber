@@ -245,4 +245,42 @@ func main() {
 	fmt.Println(nameS)    //same value
 	fmt.Println(nameS[:]) //same value
 
+	// ---- Map ----
+	//Maps is like array. It save data is even type(key, value) but use key is index. If we know key property .We can know that key value
+	// syntax : var <name> map [key_type]value_type
+
+	// var country map[string]string
+
+	country := map[string]string{}
+	country["TH"] = "Thailand"
+	country["EN"] = "England"
+
+	fmt.Println("\n")
+
+	fmt.Println(country)       // map[EN:England TH:Thailand]
+	fmt.Println(country["TH"]) //Thailand
+	fmt.Println(country["EN"]) //England
+
+	fmt.Println("\n")
+
+	coin := map[string]string{}
+	coin["BTC"] = "Bitcoin"
+	coin["ETC"] = "Ether"
+	fmt.Println(coin["BTC"])
+	fmt.Println(coin["ETC"])
+
+	fmt.Println("\n")
+
+	population := map[string]int{}
+	population["Thailand"] = 72000000
+	population["China"] = 2000000000
+
+	fmt.Println("Thaland has population = ", population["Thailand"])
+	fmt.Println("China has population = ", population["China"])
+
+	// one line
+	coin2 := map[string]string{"ETC": "Ether", "BTC": "Bitcoin"}
+	fmt.Println(coin2["ETC"])
+	fmt.Println(coin2["BTC"])
+
 }

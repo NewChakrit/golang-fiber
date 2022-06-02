@@ -283,4 +283,6 @@ func main() {
 	fmt.Println(coin2["ETC"])
 	fmt.Println(coin2["BTC"])
 
+	fmt.Println("\n")
+
 }

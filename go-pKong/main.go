@@ -42,6 +42,19 @@ func main() {
 	const name4 string = "Chanew"
 	fmt.Println(name4)
 
+	fmt.Println("\n")
+	//check type
+	name5 := "New"
+	age5 := 25
+	score5 := 95.8
+	isPass5 := true
+	fmt.Printf("My name is %v\n", name5)
+	fmt.Printf("Age : %v\n", age5)
+
+	fmt.Printf("Type name : %T\n", name5)
+	fmt.Printf("Type age : %T\n", age5)
+	fmt.Printf("Type score : %T\n", score5)
+	fmt.Printf("Type isPass : %T\n", isPass5)
 }
 
 // golang is static type . Variable must has value.

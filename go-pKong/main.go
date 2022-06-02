@@ -55,6 +55,25 @@ func main() {
 	fmt.Printf("Type age : %T\n", age5)
 	fmt.Printf("Type score : %T\n", score5)
 	fmt.Printf("Type isPass : %T\n", isPass5)
+
+	fmt.Println("\n")
+
+	// Math operation
+	// var num1 int = 10
+	// var num2 int = 8
+	// or
+	// var num1 = 10
+	// var num2 = 8
+	// or
+	// var num1, num2 = 10, 8
+	// or
+	num1, num2 := 10, 8
+
+	fmt.Println("Positive Result = ", num1+num2)
+	fmt.Println("Minus Result = ", num1-num2)
+	fmt.Println("Multiply = ", num1*num2)
+	fmt.Println("Quotient = ", num1/num2)
+	fmt.Println("Fraction = ", num1%num2)
 }
 
 // golang is static type . Variable must has value.

@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func main() {
 	fmt.Println("Hello World")
@@ -96,33 +98,56 @@ func main() {
 	// integer => %d
 	// float => %f
 
-	var nameS string
-	fmt.Print("Please input student name. ")
-	fmt.Scanf("%s", &nameS)
+	// var nameS string
+	// fmt.Print("Please input student name. ")
+	// fmt.Scanf("%s", &nameS)
 
-	fmt.Println("Hello ", nameS)
+	// fmt.Println("Hello ", nameS)
 
 	// var scoreS int
 	// fmt.Print("Please input student score. ")
 	// fmt.Scanf("%d", &scoreS)
 
-	var scoreS float32
-	fmt.Print("Please input student score. ")
-	fmt.Scanf("%f", &scoreS)
+	// var scoreS float32
+	// fmt.Print("Please input student score. ")
+	// fmt.Scanf("%f", &scoreS)
 
-	fmt.Println(nameS, "has scores + mentality scores is ", scoreS+10, "point.")
+	// fmt.Println(nameS, "has scores + mentality scores is ", scoreS+10, "point.")
+
+	// ---- Condition ----
+
+	// ---- if else ----
+
+	// var scoreNew int
+
+	// fmt.Print("Please input studen score ")
+	// fmt.Scanf("%d", &scoreNew)
+	// fmt.Println("New has score ", scoreNew, "point")
+
+	// if scoreNew >= 50 {
+	// 	fmt.Println("New is Pass exam.")
+	// } else {
+	// 	fmt.Println("New isn't Pass exam")
+	// }
+
+	// check number Odd or Even
+
+	var number int
+	fmt.Print("Please input number ")
+	fmt.Scanf("%d", &number)
+
+	// if number%2 == 0 {
+	// 	fmt.Println(number, "is even number")
+	// } else {
+	// 	fmt.Println(number, "is odd number")
+	// }
+
+	if number == 1 {
+		fmt.Println("Open an account")
+	} else if number == 2 {
+		fmt.Println("With draw money")
+	} else {
+		fmt.Println("Please input just 1 or 2.")
+	}
 
 }
-
-// golang is static type . Variable must has value.
-// has 2 types
-// - manual type declaration
-// - type inference
-
-// ---- Manual type declaration ----
-
-// var <name> <type>
-
-// ---- Type inference ----
-
-// name:= 'New'

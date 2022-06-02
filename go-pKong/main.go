@@ -210,6 +210,39 @@ func main() {
 	nameC := [...]string{"Hi", "I'", "m", "New."}
 	sizeOfNameC := len(nameC)
 	fmt.Println(nameC)
-	fmt.Println("Size of nameC are ", sizeOfNameC)
+	fmt.Println("Size of nameC are ", sizeOfNameC, '\n')
+
+	// Slices
+	// Slices is like array but can chang size of member in array (dynamic size)
+
+	nameS := []string{"new", "chakrit"}
+	// append member in Slice
+	nameS = append(nameS, "Sompong")
+	nameS = append(nameS, "Nong")
+
+	fmt.Println(nameS)
+
+	// query member in Slice
+	fmt.Println(nameS[0])
+	fmt.Println(nameS[1])
+	fmt.Println(nameS[2])
+	fmt.Println(nameS[3], "\n")
+
+	// query by set length
+	// syntax : slice[low:high]
+	// slice[first Index, ก่อน last index*]
+	fmt.Println(nameS[0:3]) //result [new , chakrit, sompong]
+	fmt.Println(nameS[1:2]) //result [chakrit]
+
+	fmt.Println(nameS[1:]) // index 1 to last member //[chakrit, sompng ,nong]
+	fmt.Println(nameS[:1]) // index 0 to 1 //[new]
+	fmt.Println("\n")
+
+	// change value in slice
+	nameS[0] = "Oum"
+	nameS[1] = "Praeploy"
+
+	fmt.Println(nameS)    //same value
+	fmt.Println(nameS[:]) //same value
 
 }

@@ -166,5 +166,50 @@ func main() {
 	// 	fmt.Println("Please input just 1 or 2")
 	// }
 
+	fmt.Println("\n")
+
 	// ---- Array ----
+	// has 2 type
+	// 1. set number of members
+	var numberA [4]int = [4]int{10, 20, 30, 40}
+	fmt.Println(numberA, "\n")
+	fmt.Println(numberA[0])
+	fmt.Println(numberA[1])
+	fmt.Println(numberA[2])
+	fmt.Println(numberA[3])
+	fmt.Println(len(numberA), "\n")
+	// short hand
+	nameA := [3]string{"Somchay", "Sompong", "Sommai"}
+	fmt.Println(nameA, "\n")
+	fmt.Println(nameA[0])
+	fmt.Println(nameA[1])
+	fmt.Println(nameA[2])
+	fmt.Println(len(nameA), "\n")
+
+	// nameB := [3]int{} //result [ 0, 0, 0]
+	nameB := [3]int{100} // result [100, 0, 0]
+	fmt.Println("Member of nameB are", nameB)
+
+	var numbers [4]int
+	// fmt.Println("Members in numbers array is ", numbers, "\n") //result = [0 ,0 ,0 ,0]
+	// create members
+	numbers[0] = 23
+	numbers[1] = 99
+	numbers[2] = 69
+	numbers[3] = 55
+	fmt.Println("Members in numbers array are ", numbers, "\n")
+
+	// count length array
+	numberA2 := [5]int{1, 2, 3, 4, 5}
+	fmt.Println("Length of numberA2 is ", len(numberA2))
+
+	petsName := [2]string{"Chokdee", "Meaw"}
+	fmt.Println("Length of petsName are ", len(petsName))
+
+	// 2. Not set number of members
+	nameC := [...]string{"Hi", "I'", "m", "New."}
+	sizeOfNameC := len(nameC)
+	fmt.Println(nameC)
+	fmt.Println("Size of nameC are ", sizeOfNameC)
+
 }

@@ -319,4 +319,41 @@ func main() {
 		fmt.Println("Does coruntrys variable in key JP has value :", check)
 	}
 
+	// ----- For ... Loop -----
+	// syntax : for <default value>; <condition>; <change value in variable>{order if condition is True}
+	// 1. Set default value.
+	// 2. if condition is true ,do repeat order in statement.
+	// 3. if condition is false ,get out for loop.
+
+	for count := 1; count <= 3; count++ {
+		fmt.Println("Hello Go programming.", count)
+	}
+
+	fmt.Println("\n")
+
+	for count := 10; count >= 2; count-- {
+		fmt.Println("Hello Go programming.", count)
+	}
+
+	// ----- break and continue -----
+
+	for count := 1; count <= 10; count++ {
+		// fmt.Println(count) //1-5
+		// if count == 5 {
+		// 	break
+		// }    OR
+
+		// if count == 5 {
+		// 	break
+		// }
+		// fmt.Println(count) //1-4
+
+		if count == 4 {
+			continue
+		}
+		fmt.Println(count)
+
+	}
+
+	fmt.Println("End Loop")
 }

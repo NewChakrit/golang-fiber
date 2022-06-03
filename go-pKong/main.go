@@ -389,11 +389,34 @@ func main() {
 		fmt.Println("Key: ", key, ", Value: ", value)
 	}
 
-	showMessage()
+	showMessage("New")
+	showMessage("Oum")
+
+	total(50, 40)
+
+	delivery := getDelivery()
+	fmt.Println("Delivery : ", delivery)
+
+	totalPrice := getTotalCart(9, 69)
+
+	fmt.Println("Totalprice : ", totalPrice)
 }
 
 // ----- Function -----
 
-func showMessage() {
-	fmt.Println("Show message.")
+func showMessage(name string) {
+	fmt.Println("Hello ", name)
+}
+
+func total(num1, num2 int) {
+	fmt.Println("Total : ", num1+num2)
+}
+
+func getDelivery() int {
+	return 50
+}
+
+func getTotalCart(num1, num2 int) int {
+	total := num1 + num2
+	return total
 }

@@ -407,6 +407,25 @@ func main() {
 	fmt.Println("\n")
 
 	fmt.Println(summation(20, 30, 99, 88, 55))
+
+	//Struck
+
+	product1 := Product{name: "pen", price: 50.05, category: "Stationery", discount: 5}
+
+	product2 := Product{name: "pencil", price: 9.99, category: "Stationery", discount: 2}
+	product3 := Product{name: "color pencil", price: 199.69, category: "Stationery", discount: 39}
+
+	// change value
+	product1.price = 69.75
+
+	fmt.Println(product1)
+	fmt.Println(product1.name)
+	fmt.Println(product1.price)
+	fmt.Println(product1.category)
+	fmt.Println(product1.discount)
+
+	fmt.Println(product2)
+	fmt.Println(product3)
 }
 
 // ----- Function -----
@@ -451,4 +470,25 @@ func summation(numbers ...int) int {
 		total += value
 	}
 	return total
+}
+
+// ---- Structure ----
+// syntax :
+// type <name> struct{
+// 	var1 type;
+// 	var2 type;
+// 	...
+// }
+
+// **Exam Product Structure**
+// product name (string)
+// price (float)
+// category (string)
+// discount (int)
+
+type Product struct {
+	name     string
+	price    float64
+	category string
+	discount int
 }

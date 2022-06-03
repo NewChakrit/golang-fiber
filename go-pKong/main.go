@@ -400,6 +400,9 @@ func main() {
 	totalPrice := getTotalCart(9, 69)
 
 	fmt.Println("Totalprice : ", totalPrice)
+
+	result, status := sum(55, 44)
+	fmt.Println("sum : ", result, ", status", status)
 }
 
 // ----- Function -----
@@ -419,4 +422,17 @@ func getDelivery() int {
 func getTotalCart(num1, num2 int) int {
 	total := num1 + num2
 	return total
+}
+
+//---- return mutiple value
+
+func sum(num1, num2 int) (int, string) {
+	total := num1 + num2
+	status := ""
+	if total%2 == 0 {
+		status = "Even number"
+	} else {
+		status = "Odd number"
+	}
+	return total, status
 }

@@ -320,7 +320,7 @@ func main() {
 	}
 
 	// ----- For ... Loop -----
-	// syntax : for <default value>; <condition>; <change value in variable>{order if condition is True}
+	// syntax : for <create default value>; <condition>; <change value in variable>{order if condition is True}
 	// 1. Set default value.
 	// 2. if condition is true ,do repeat order in statement.
 	// 3. if condition is false ,get out for loop.
@@ -358,4 +358,34 @@ func main() {
 	fmt.Println("End Loop")
 
 	fmt.Println("\n")
+
+	// ----- Range -----
+
+	numberR := []int{10, 20, 30, 40, 50}
+
+	for index := 0; index < len(numberR); index++ {
+		// fmt.Println(numberR[index])
+		fmt.Println("Index : ", index, ", Value : ", numberR[index])
+	}
+
+	fmt.Println("\n")
+
+	for index, value := range numberR {
+		fmt.Println("Index : ", index, ", Value : ", value)
+	}
+	for _, value := range numberR { // if don't want index = "_" => it mean ignore.
+		fmt.Println("Value : ", value)
+	}
+
+	fmt.Println("\n")
+
+	for index, _ := range numberR {
+		fmt.Println("Index : ", index)
+	}
+
+	language := map[string]string{"TH": "Thai", "EN": "Englist"}
+
+	for key, value := range language {
+		fmt.Println("Key: ", key, ", Value: ", value)
+	}
 }

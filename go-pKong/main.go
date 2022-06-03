@@ -285,4 +285,38 @@ func main() {
 
 	fmt.Println("\n")
 
+	// ----- Create Map -----
+
+	// countrys := [3]string{"Thailand, China", "Japan"}
+
+	// countrys := map[string]string{"TH": "Thailand", "JP": "Japan", "CH": "China"} //or
+	countrys := map[string]string{}
+	countrys["TH"] = "Thailand"
+	countrys["JP"] = "Japan"
+	countrys["CH"] = "China"
+
+	fmt.Println(countrys["TH"])
+	fmt.Println(countrys["JP"])
+	fmt.Println(countrys["CH"])
+	// fmt.Println(countrys[""]) //
+
+	fmt.Println(countrys) //map[CH:China JP:Japan TH:Thailand]
+
+	// check map
+	//--value* find value in key -- Result = value
+	//--check* check key in map -- Result = bool
+
+	value, check := countrys["JP"]
+	value2, isKey := countrys["TH"]
+
+	if check {
+		fmt.Println("Does coruntrys variable in key JP has value :", check, "\n , and value is :", value)
+
+	} else if isKey {
+		fmt.Println("Does coruntrys variable in key JP has value :", isKey, "\n , and value is :", value2)
+
+	} else {
+		fmt.Println("Does coruntrys variable in key JP has value :", check)
+	}
+
 }

@@ -388,4 +388,12 @@ func main() {
 	for key, value := range language {
 		fmt.Println("Key: ", key, ", Value: ", value)
 	}
+
+	showMessage()
+}
+
+// ----- Function -----
+
+func showMessage() {
+	fmt.Println("Show message.")
 }

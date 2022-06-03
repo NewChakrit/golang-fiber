@@ -426,6 +426,12 @@ func main() {
 
 	fmt.Println(product2)
 	fmt.Println(product3)
+
+	fmt.Println("\n")
+
+	// ---- Package ----
+	// fmt.Println(calculator.App(88, 7))
+	// fmt.Println(calculator3.Add(20,99)) // Error
 }
 
 // ----- Function -----

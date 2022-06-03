@@ -356,4 +356,6 @@ func main() {
 	}
 
 	fmt.Println("End Loop")
+
+	fmt.Println("\n")
 }

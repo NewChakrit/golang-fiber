@@ -406,6 +406,7 @@ func main() {
 
 	fmt.Println("\n")
 
+	fmt.Println(summation(20, 30, 99, 88, 55))
 }
 
 // ----- Function -----
@@ -439,4 +440,15 @@ func sum(num1, num2 int) (int, string) {
 	}
 	return total, status
 
+}
+
+//  ---- Variadic Function ----
+// Variadic function is function has infinity parameter.
+
+func summation(numbers ...int) int {
+	total := 0
+	for _, value := range numbers {
+		total += value
+	}
+	return total
 }

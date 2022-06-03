@@ -403,6 +403,9 @@ func main() {
 
 	result, status := sum(55, 44)
 	fmt.Println("sum : ", result, ", status", status)
+
+	fmt.Println("\n")
+
 }
 
 // ----- Function -----
@@ -435,4 +438,5 @@ func sum(num1, num2 int) (int, string) {
 		status = "Odd number"
 	}
 	return total, status
+
 }

@@ -19,20 +19,42 @@ func (l SqlLogger) Trace(ctx context.Context, begin time.Time, fc func() (sql st
 	fmt.Printf("%v\n===================================\n", sql)
 }
 
+var db *gorm.DB
+
 func main() {
 	dsn := "root:Chanew25@tcp(127.0.0.1:3306)/New?parseTime=true"
 	dial := mysql.Open(dsn)
-	db, err := gorm.Open(dial, &gorm.Config{
+
+	var err error
+	db, err = gorm.Open(dial, &gorm.Config{
 		Logger: &SqlLogger{},
-		DryRun: true,
+		DryRun: true, //Test virsual order
 	})
 	if err != nil {
 		panic(err)
 	}
 
 	// db.Migrator().CreateTable(Gender{})
-	// db.AutoMigrate(Gender{})
-	db.Migrator().CreateTable(Test{})
+	// db.AutoMigrate(Gender{}, Test{})
+	// db.Migrator().CreateTable(Test{})
+
+	CreateGender("Male")
+}
+
+func CreateGender(name string) {
+	gender := Gender{Name: name}
+	tx := db.Create(&gender)
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+		return
+	}
+
+	fmt.Println(gender)
+}
+
+type Gender struct {
+	ID   uint
+	Name string `gorm:"unique;size:10"`
 }
 
 type Test struct {

@@ -2,11 +2,13 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
 	"time"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/clause"
 	"gorm.io/gorm/logger"
 )
 
@@ -28,13 +30,13 @@ func main() {
 	var err error
 	db, err = gorm.Open(dial, &gorm.Config{
 		Logger: &SqlLogger{},
-		DryRun: false, //Test virsual order
+		DryRun: false, //Test virsual order if true
 	})
 	if err != nil {
 		panic(err)
 	}
 
-	// db.Migrator().CreateTable(Gender{})
+	// db.Migrator().CreateTable(Gender{}, Test{}, Customer{})
 	// db.AutoMigrate(Gender{}, Test{})
 	// db.Migrator().CreateTable(Test{})
 
@@ -43,7 +45,80 @@ func main() {
 	// GetGender(1)
 	// GetGenderByName("Male")
 	// UpdateGender(4, "yyyy")
-	UpdateGender(4, "zzzz")
+	// UpdateGender(4, "zzzz")
+	// DeleteGender(4)
+
+	// CreateTest(0, "Test1")
+	// CreateTest(0, "Test2")
+	// CreateTest(0, "Test3")
+
+	// DeleteTest(3)
+	// GetTests()
+
+	// db.Migrator().CreateTable(Customer{})
+
+	// CreateCustomer("Oum", 2)
+
+	// GetCustomers()
+	UpdateGender2(1, "Male")
+}
+
+type Customer struct {
+	// gorm.Model
+	ID       uint
+	Name     string
+	Gender   Gender
+	GenderID uint
+}
+
+func CreateCustomer(name string, genderID uint) {
+	customer := Customer{
+		Name:     name,
+		GenderID: genderID,
+	}
+
+	tx := db.Create(&customer)
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+		return
+	}
+	fmt.Println(customer)
+}
+
+func GetCustomers() {
+	customers := []Customer{}
+	// tx := db.Preload("Gender").Find(&customers) // preload
+	tx := db.Preload(clause.Associations).Find(&customers) // preload every table
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+		return
+	}
+	// fmt.Println(customers, "\n")
+	for _, customer := range customers {
+		fmt.Printf("%v|%v|%v\n", customer.ID, customer.Name, customer.Gender.Name)
+	}
+}
+
+func CreateTest(code uint, name string) {
+	test := Test{Code: code, Name: name}
+	db.Create(&test)
+
+}
+
+func GetTests() {
+	tests := []Test{}
+	db.Find(&tests)
+	for _, t := range tests {
+		fmt.Printf("%v|%v\n", t.ID, t.Name)
+	}
+}
+
+// func DeleteTest(id uint) {
+// 	db.Delete(&Test{}, id) // soft delete
+// }
+
+func DeleteTest(id uint) {
+	db.Unscoped().Delete(&Test{}, id) // resl delete
 }
 
 // ----- Create ------
@@ -117,7 +192,7 @@ func UpdateGender(id uint, name string) {
 
 func UpdateGender2(id uint, name string) {
 	gender := Gender{Name: name}
-	tx := db.Model(&Gender{}).Where("id=?", id).Updates(gender)
+	tx := db.Model(&Gender{}).Where("id=@myid", sql.Named("myid", id)).Updates(gender)
 	if tx.Error != nil {
 		fmt.Println(tx.Error)
 		return
@@ -128,7 +203,13 @@ func UpdateGender2(id uint, name string) {
 //  ------ Delete ------
 
 func DeleteGender(id uint) {
-
+	tx := db.Delete(&Gender{}, id)
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+		return
+	}
+	fmt.Println("Deleted")
+	GetGender(id)
 }
 
 type Gender struct {
@@ -146,3 +227,6 @@ type Test struct {
 func (t Test) TableName() string {
 	return "MyTest"
 }
+
+// Row SQL
+// Manual SQL Query

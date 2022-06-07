@@ -28,7 +28,7 @@ func main() {
 	var err error
 	db, err = gorm.Open(dial, &gorm.Config{
 		Logger: &SqlLogger{},
-		DryRun: true, //Test virsual order
+		DryRun: false, //Test virsual order
 	})
 	if err != nil {
 		panic(err)
@@ -38,12 +38,54 @@ func main() {
 	// db.AutoMigrate(Gender{}, Test{})
 	// db.Migrator().CreateTable(Test{})
 
-	CreateGender("Male")
+	// CreateGender("Female")
+	// GetGenders()
+	// GetGender(1)
+	GetGenderByName("Male")
 }
 
+// ----- Create ------
 func CreateGender(name string) {
 	gender := Gender{Name: name}
 	tx := db.Create(&gender)
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+		return
+	}
+
+	fmt.Println(gender)
+}
+
+// ----- Read ------
+
+func GetGenders() { // All genders
+	genders := []Gender{}
+	// tx := db.Find(&genders)
+	tx := db.Order("id").Find(&genders) // order by _
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+		return
+	}
+
+	fmt.Println(genders)
+}
+
+func GetGenderByName(name string) { // All genders
+	genders := []Gender{}
+	// tx := db.Find(&genders)
+	// tx := db.Order("id").Find(&genders, "name=?", name) // order by _  ==== or ====
+	tx := db.Where("name=?", name).Find(&genders) // order by _
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+		return
+	}
+
+	fmt.Println(genders)
+}
+
+func GetGender(id uint) {
+	gender := Gender{}
+	tx := db.First(&gender, id)
 	if tx.Error != nil {
 		fmt.Println(tx.Error)
 		return

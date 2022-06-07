@@ -38,10 +38,12 @@ func main() {
 	// db.AutoMigrate(Gender{}, Test{})
 	// db.Migrator().CreateTable(Test{})
 
-	// CreateGender("Female")
+	// CreateGender("xxxx")
 	// GetGenders()
 	// GetGender(1)
-	GetGenderByName("Male")
+	// GetGenderByName("Male")
+	// UpdateGender(4, "yyyy")
+	UpdateGender(4, "zzzz")
 }
 
 // ----- Create ------
@@ -92,6 +94,41 @@ func GetGender(id uint) {
 	}
 
 	fmt.Println(gender)
+}
+
+// ------ Update ------
+
+func UpdateGender(id uint, name string) {
+	gender := Gender{}
+	tx := db.First(&gender, id)
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+		return
+	}
+	gender.Name = name
+	tx = db.Save(&gender)
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+		return
+	}
+	GetGender(id)
+
+}
+
+func UpdateGender2(id uint, name string) {
+	gender := Gender{Name: name}
+	tx := db.Model(&Gender{}).Where("id=?", id).Updates(gender)
+	if tx.Error != nil {
+		fmt.Println(tx.Error)
+		return
+	}
+	GetGender(id)
+}
+
+//  ------ Delete ------
+
+func DeleteGender(id uint) {
+
 }
 
 type Gender struct {

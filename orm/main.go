@@ -32,16 +32,16 @@ func main() {
 
 	// db.Migrator().CreateTable(Gender{})
 	// db.AutoMigrate(Gender{})
-	db.Migrator().CreateTable(Gender{})
+	db.Migrator().CreateTable(Test{})
 }
 
-type Gender struct {
-	ID   uint
-	Code uint `gorm:"primaryKey;comment: This is Code"`
+type Test struct {
+	gorm.Model
+	Code uint `gorm:"comment: This is Code"`
 	// Name string `gorm:"column:myname;type:varchar(50)"` // config column name, confix type
 	Name string `gorm:"column:myname;size:20;unique;default:Hello;not null"`
 }
 
-func (t Gender) TableName() string {
+func (t Test) TableName() string {
 	return "MyTest"
 }

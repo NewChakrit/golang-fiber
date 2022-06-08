@@ -1,8 +1,11 @@
 package services_test
 
 import (
+	"fmt"
 	"testing"
 	"unit-test/services"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCheckGrade(t *testing.T) {
@@ -26,9 +29,10 @@ func TestCheckGrade(t *testing.T) {
 			grade := services.CheckGrade(c.score) // .services เรียกข้าม package
 			// expected := c.expected
 
-			if grade != c.expected {
-				t.Errorf("got %v expected %v", grade, c.expected)
-			}
+			assert.Equal(t, c.expected, grade)
+			// if grade != c.expected {
+			// 	t.Errorf("got %v expected %v", grade, c.expected)
+			// }
 		})
 	}
 
@@ -56,3 +60,15 @@ func TestCheckGrade(t *testing.T) {
 
 // go test ./... ===> run every test every where
 // go test ./... -v ===> run every test every where
+
+func BencmarkCheckGrade(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		services.CheckGrade(80)
+	}
+}
+
+func ExampleCheckGrade() {
+	grade := services.CheckGrade(70)
+	fmt.Println(grade)
+	// Output A
+}

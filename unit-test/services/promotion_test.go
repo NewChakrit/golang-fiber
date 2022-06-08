@@ -47,5 +47,23 @@ func TestPromotionCalculateDiscount(t *testing.T) {
 		})
 
 	}
+	t.Run("purchase amount zero", func(t *testing.T) {
+		// Arrange
+		promoRepo := repositories.NewPromotionRepositoryMock()
+		promoRepo.On("GetPromotion").Return(repositories.Promotion{
+			ID:              1,
+			PurchaseMin:     100,
+			DiscountPercent: 20,
+		}, nil)
+
+		promoService := services.NewPromotionService(promoRepo)
+
+		// Act
+		_, err := promoService.CalculateDiscount(0)
+
+		// Assert
+		assert.ErrorIs(t, err, services.ErrZeroAmount)
+		promoRepo.AssertNotCalled(t, "GetPromotion")
+	})
 
 }

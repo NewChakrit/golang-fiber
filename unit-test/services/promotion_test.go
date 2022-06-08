@@ -1,6 +1,7 @@
 package services_test
 
 import (
+	"errors"
 	"testing"
 	"unit-test/repositories"
 	"unit-test/services"
@@ -64,6 +65,20 @@ func TestPromotionCalculateDiscount(t *testing.T) {
 		// Assert
 		assert.ErrorIs(t, err, services.ErrZeroAmount)
 		promoRepo.AssertNotCalled(t, "GetPromotion")
+	})
+
+	t.Run("repository error", func(t *testing.T) {
+		// Arrange
+		promoRepo := repositories.NewPromotionRepositoryMock()
+		promoRepo.On("GetPromotion").Return(repositories.Promotion{}, errors.New(""))
+
+		promoService := services.NewPromotionService(promoRepo)
+
+		// Act
+		_, err := promoService.CalculateDiscount(100)
+
+		// Assert
+		assert.ErrorIs(t, err, services.ErrRepository)
 	})
 
 }

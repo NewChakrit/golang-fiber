@@ -7,26 +7,42 @@ import (
 
 func TestCheckGrade(t *testing.T) {
 
-	t.Run("A", func(t *testing.T) {
-		grade := services.CheckGrade(80) // .services เรียกข้าม package
-		expectd := "A"
+	type testCase struct {
+		name     string
+		score    int
+		expected string
+	}
 
-		if grade != expectd {
-			t.Errorf("got %v expected %v", grade, expectd)
-		}
-	})
+	cases := []testCase{
+		{name: "a", score: 80, expected: "A"},
+		{name: "b", score: 70, expected: "B"},
+		{name: "c", score: 60, expected: "C"},
+		{name: "d", score: 50, expected: "D"},
+		{name: "f", score: 0, expected: "F"},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			grade := services.CheckGrade(c.score) // .services เรียกข้าม package
+			// expected := c.expected
+
+			if grade != c.expected {
+				t.Errorf("got %v expected %v", grade, c.expected)
+			}
+		})
+	}
 
 	// ---- check some test ----
 	// go test unit-test/services -run="TestCheckGrade/A" -v
 
-	t.Run("B", func(t *testing.T) {
-		grade := services.CheckGrade(70) // .services เรียกข้าม package
-		expectd := "B"
+	// t.Run("B", func(t *testing.T) {
+	// 	grade := services.CheckGrade(70) // .services เรียกข้าม package
+	// 	expectd := "B"
 
-		if grade != expectd {
-			t.Errorf("got %v expected %v", grade, expectd)
-		}
-	})
+	// 	if grade != expectd {
+	// 		t.Errorf("got %v expected %v", grade, expectd)
+	// 	}
+	// })
 }
 
 //  ----- terminal ------

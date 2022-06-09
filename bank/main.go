@@ -18,10 +18,17 @@ func main() {
 
 	_ = customerRepository
 
-	customers, err := customerRepository.GetAll()
+	// ----- Get All Customers -----
+	// customers, err := customerRepository.GetAll()
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// fmt.Println(customers)
+
+	// ----- Get a Customer -----
+	customer, err := customerRepository.GetById(2000)
 	if err != nil {
 		panic(err)
 	}
-
-	fmt.Println(customers)
+	fmt.Println(customer)
 }

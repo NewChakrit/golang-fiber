@@ -1,6 +1,7 @@
 package service
 
 import (
+	"bank/logs"
 	"bank/repository"
 	"database/sql"
 	"errors"
@@ -45,6 +46,7 @@ func (s customerService) Getcustomer(id int) (*CustomerResponse, error) {
 		}
 
 		log.Println(err)
+		logs.Error(err)
 		return nil, err
 	}
 

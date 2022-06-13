@@ -27,6 +27,16 @@ func Info (message string , fields ...zap.Field){
 func Debug (message string , fields ...zap.Field){
 	log.Debug(message, fields...)
 }
-func Error (message string , fields ...zap.Field){
-	log.Error(message, fields...)
+func Error (message interface{} , fields ...zap.Field){
+	switch v := message.(type) {
+	case error :
+		log.Error(v.Error(), fields...)
+	case string:
+		log.Error(v)
+	}
+	
+	// msg, ok := message.(error)
+	// if ok {
+	// 	msg.Error()
+	// }
 }

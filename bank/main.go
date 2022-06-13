@@ -36,7 +36,7 @@ func main() {
 	router.HandleFunc("/customers/{customerID:[0-9]+}", customerHandler.Getcustomers).Methods(http.MethodGet)
 
 	// log.Panicf("Banking service started at port %v", viper.GetInt("app.port"))
-	logs.Log.Info("Banking service started at port " + viper.GetString("app.port"))
+	logs.Info("Banking service started at port " + viper.GetString("app.port"))
 	http.ListenAndServe(fmt.Sprintf(":%v", viper.GetInt("app.port")), router)
 
 	// customers, err := customerService.Getcustomers()

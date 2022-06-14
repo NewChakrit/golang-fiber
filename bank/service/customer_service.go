@@ -1,11 +1,12 @@
 package service
 
 import (
+	"bank/errs"
 	"bank/logs"
 	"bank/repository"
 	"database/sql"
-	"errors"
 	"log"
+	"net/http"
 )
 
 type customerService struct {
@@ -42,10 +43,13 @@ func (s customerService) Getcustomer(id int) (*CustomerResponse, error) {
 	if err != nil {
 
 		if err == sql.ErrNoRows {
-			return nil, errors.New("customer not found")
+			// return nil, errors.New("customer not found")
+			return nil, errs.AppError{
+				Code: http.StatusNotFound,
+			}
 		}
 
-		log.Println(err)
+		// log.Println(err)
 		logs.Error(err)
 		return nil, err
 	}

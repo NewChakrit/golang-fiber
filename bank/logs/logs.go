@@ -13,6 +13,7 @@ func init () {
 	config := zap.NewProductionConfig()
 	config.EncoderConfig.TimeKey = "timestamp"
 	config.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
+	config.EncoderConfig.StacktraceKey = ""
 	 
 	var err error
 	log, err = config.Build(zap.AddCallerSkip(1))

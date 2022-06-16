@@ -52,7 +52,10 @@ func (s customerService) Getcustomer(id int) (*CustomerResponse, error) {
 
 		// log.Println(err)
 		logs.Error(err)
-		return nil, err
+		return nil, errs.AppError{
+			Code: http.StatusInternalServerError,
+			Message: "Unexpected error",
+		}
 	}
 
 	custResponse := CustomerResponse{

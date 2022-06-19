@@ -47,6 +47,7 @@ func (s customerService) Getcustomer(id int) (*CustomerResponse, error) {
 			return nil, errs.AppError{
 				Code: http.StatusNotFound,
 				Message: "Customer not found",
+			// return nil, errs.NewNotFoundError("customer not found")
 			}
 		}
 

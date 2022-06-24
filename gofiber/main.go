@@ -43,8 +43,26 @@ func main () {
 		return c.SendString(fmt.Sprintf("ID = %v", id))
 	})
 
+	//Query
+	app.Get("query", func(c *fiber.Ctx) error {  //เวลาส่ง query string ต้องใส่? => curl "localhost:8000/query?name=<input>"
+		name := c.Query("name")  
+		surname:=c.Query("surname")   // curl "localhost:8000/query?name=New&surname=Chakrit"
+		return c.SendString("name: "+ name +", surname: " + surname)
+	})
+
+	//Query2
+	app.Get("query2", func(c *fiber.Ctx) error {  // curl "localhost:8000/query2?id=1&name=New"        
+		person := Person{}  
+		c.QueryParser(&person)
+		return c.JSON(person)
+	})
+
 	app.Listen(":8000")
 }
 
+type Person struct{
+	Id int `json:"id"`
+	Name string `json:"name"`
+}
 
 

@@ -57,7 +57,16 @@ func main () {
 		return c.JSON(person)
 	})
 
+
+	//Wildcards
+	app.Get("/wildcards/*", func(c *fiber.Ctx) error { //gofiber % curl localhost:8000/wildcards/hello/world
+		wildcard := c.Params("*")
+		return c.SendString(wildcard)   // result => hello/world
+	})
+
 	app.Listen(":8000")
+
+
 }
 
 type Person struct{

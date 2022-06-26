@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -62,6 +63,12 @@ func main () {
 	app.Get("/wildcards/*", func(c *fiber.Ctx) error { //gofiber % curl localhost:8000/wildcards/hello/world
 		wildcard := c.Params("*")
 		return c.SendString(wildcard)   // result => hello/world
+	})
+
+	//Static file 
+	app.Static("/", "./wwwroot", fiber.Static{
+		Index: "index.html",
+		CacheDuration: time.Second * 10,
 	})
 
 	app.Listen(":8000")

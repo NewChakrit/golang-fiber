@@ -81,4 +81,10 @@ type Person struct{
 	Name string `json:"name"`
 }
 
+// enum WorkStatus {
+// 	task=1,
+// 	Working,
+// 	Done
+// }
 
+// const.log(WorkStatus.task)

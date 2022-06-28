@@ -10,12 +10,21 @@ import (
 func main () {
 
 	app:=fiber.New()
-	
+
 	//Middleware
+	app.Use("/hello",func (c *fiber.Ctx) error  {
+		c.Locals("name", "New")
+		fmt.Println("before")
+		err:=c.Next()
+		fmt.Println("after")
+		return err
+	})
 
 	//GET
 	app.Get("/hello", func(c *fiber.Ctx) error {
-		return c.SendString("GET: Hello world")
+		name:= c.Locals("name")
+		fmt.Println("Hello")
+		return c.SendString(fmt.Sprintf("GET: Hello world %v", name))
 	})
 
 	//POST

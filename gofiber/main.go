@@ -10,6 +10,8 @@ import (
 func main () {
 
 	app:=fiber.New()
+	
+	//Middleware
 
 	//GET
 	app.Get("/hello", func(c *fiber.Ctx) error {

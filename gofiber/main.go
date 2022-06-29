@@ -111,7 +111,7 @@ func main () {
 		c.Set("Version", "v1")
 		return c.Next()
 	})
-	
+
 	v1.Get("/hello", func(c *fiber.Ctx) error {
 		return c.SendString("Hello v1")
 	})
@@ -125,8 +125,15 @@ func main () {
 		return c.SendString("Hello v2")
 	})
 
-	app.Listen(":8000")
+	//Mount
+	userApp:=fiber.New()
+	userApp.Get("/login", func(c *fiber.Ctx) error {
+		return c.SendString("Login")
+	})
 
+	app.Mount("/user",userApp)
+
+	app.Listen(":8000")
 
 }
 

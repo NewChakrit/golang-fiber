@@ -6,7 +6,6 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 )
 
@@ -35,9 +34,9 @@ func main () {
 		AllowHeaders: "*",
 	}))
 
-	app.Use(logger.New(logger.Config{
-		TimeZone: "Asia/Bangkok",
-	}))
+	// app.Use(logger.New(logger.Config{
+	// 	TimeZone: "Asia/Bangkok",
+	// }))
 
 	//GET
 	app.Get("/hello", func(c *fiber.Ctx) error {
@@ -153,8 +152,33 @@ func main () {
 		})
 	})
 
-	app.Listen(":8000")
+	//Body
+	app.Post("/body",func(c *fiber.Ctx) error {
+		fmt.Printf("Is JSON: %v\n", c.Is("json"))
+		// fmt.Println(string(c.Body()))
 
+		person:=Person{}
+		err:=c.BodyParser(&person)
+		if err!=nil{
+			return err
+		}
+		fmt.Println(person)
+		return nil
+	})
+	
+	app.Post("/body2",func(c *fiber.Ctx) error {
+		fmt.Printf("Is JSON: %v\n", c.Is("json"))
+		// fmt.Println(string(c.Body()))
+
+		data := map[string] interface{}{}
+		err:=c.BodyParser(&data)
+		if err!=nil{
+			return err
+		}
+		fmt.Println(data)
+		return nil
+	})
+	app.Listen(":8000")
 }
 
 type Person struct{
@@ -169,3 +193,4 @@ type Person struct{
 // }
 
 // const.log(WorkStatus.task)
+

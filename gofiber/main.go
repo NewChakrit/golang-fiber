@@ -133,6 +133,26 @@ func main () {
 
 	app.Mount("/user",userApp)
 
+	//Server
+	app.Server().MaxConnsPerIP = 1
+	app.Get("/server",func(c *fiber.Ctx) error {
+		time.Sleep(time.Second*30)
+		return c.SendString("server")
+	})
+
+	app.Get("/env",func(c *fiber.Ctx) error {
+		return c.JSON(fiber.Map{
+			"BaseURL": c.BaseURL(),
+			"Hostname": c.Hostname(),
+			"IP": c.IP(),
+			"IPs": c.IPs(),
+			"OriginalURL": c.OriginalURL(),
+			"Path": c.Path(),
+			"Protocal":c.Protocol(),
+			"Subdomains":c.Subdomains(),
+		})
+	})
+
 	app.Listen(":8000")
 
 }

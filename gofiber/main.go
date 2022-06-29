@@ -5,11 +5,18 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/requestid"
 )
 
 func main () {
 
-	app:=fiber.New()
+	app:=fiber.New(fiber.Config{
+		Prefork: true,
+		// CaseSensitive: false,
+		// StrictRouting: false,
+	})
 
 	//Middleware
 	app.Use("/hello",func (c *fiber.Ctx) error  {
@@ -19,6 +26,18 @@ func main () {
 		fmt.Println("after")
 		return err
 	})
+
+	app.Use(requestid.New())
+
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+		AllowMethods: "*",
+		AllowHeaders: "*",
+	}))
+
+	app.Use(logger.New(logger.Config{
+		TimeZone: "Asia/Bangkok",
+	}))
 
 	//GET
 	app.Get("/hello", func(c *fiber.Ctx) error {
@@ -85,6 +104,25 @@ func main () {
 	//New Error
 	app.Get("/error", func(c *fiber.Ctx) error {
 		return fiber.NewError(fiber.StatusNotFound, "content not found")
+	})
+
+	//Group
+	v1:= app.Group("/v1",func(c *fiber.Ctx) error {
+		c.Set("Version", "v1")
+		return c.Next()
+	})
+	
+	v1.Get("/hello", func(c *fiber.Ctx) error {
+		return c.SendString("Hello v1")
+	})
+
+	v2:= app.Group("/v2",func(c *fiber.Ctx) error {
+		c.Set("Version", "v2")
+		return c.Next()
+	})
+
+	v2.Get("/hello", func(c *fiber.Ctx) error {
+		return c.SendString("Hello v2")
 	})
 
 	app.Listen(":8000")

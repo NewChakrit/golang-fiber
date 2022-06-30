@@ -2,17 +2,24 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"time"
 
+	"github.com/dgrijalva/jwt-go/v4"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/requestid"
 	"github.com/jmoiron/sqlx"
+	"golang.org/x/crypto/bcrypt"
 
 	_ "github.com/go-sql-driver/mysql"
+
+	jwtware "github.com/gofiber/jwt/v3"
 )
 
 var db *sqlx.DB
+
+const jwtSecret = "arise"
 
 func main () {
 
@@ -23,6 +30,17 @@ func main () {
 	}
 
 	app:= fiber.New()
+
+	app.Use("/hello", jwtware.New(jwtware.Config{
+		SigningMethod: "HS256",
+		SigningKey: []byte(jwtSecret),
+		SuccessHandler: func(c *fiber.Ctx) error {
+			return c.Next()
+		},
+		ErrorHandler: func(c *fiber.Ctx, err error) error {
+			return fiber.ErrUnauthorized
+		},
+	}))
 
 	app.Post("/signup",Signup)
 	app.Post("/login",Login)
@@ -43,8 +61,14 @@ func Signup (c *fiber.Ctx)error {
 		return fiber.ErrUnprocessableEntity
 	}
 
+	//bcrypt
+	password, err:= bcrypt.GenerateFromPassword([]byte(request.Password),10)
+	if err!=nil{
+		return fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
+	}
+
 	query:= "insert user (username, password) values (?, ?)"
-	result,err:= db.Exec(query, request.Username, request.Password)
+	result,err:= db.Exec(query, request.Username, string(password))
 	if err!=nil{
 		return fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
 	}
@@ -57,18 +81,56 @@ func Signup (c *fiber.Ctx)error {
 	user := User{
 		Id:int(id),
 		Username: request.Username,
-		Password: request.Password,
+		Password: string(password),
 	}
 
-	return c.JSON(user)
+	return c.Status(fiber.StatusCreated).JSON(user)
 }
 
 func Login (c *fiber.Ctx)error {
-	return nil
+
+	request:= LoginRequest{}
+	err:= c.BodyParser(&request)
+	if err!= nil{
+		return err
+	}
+
+	if request.Username == "" || request.Password == "" {
+		return fiber.ErrUnprocessableEntity
+	}
+
+	user := User{}
+	query := "select id, username, password from user where username=?"
+	err= db.Get(&user, query, request.Username)
+	if err != nil{
+		return fiber.NewError(fiber.StatusNotFound, "Incorrect username or password")
+	}
+	
+	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(request.Password))
+	if err != nil{
+		return fiber.NewError(fiber.StatusNotFound, "Incorrect username or password")
+	}
+
+	cliams := jwt.StandardClaims{
+		Issuer: strconv.Itoa(user.Id),
+		// ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
+	}
+
+	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS256, cliams)
+	token , err := jwtToken.SignedString([]byte(jwtSecret))
+	if err != nil{
+		return fiber.ErrInternalServerError
+	}
+
+	// return c.SendStatus(fiber.StatusOK)
+	return c.JSON(fiber.Map{
+		"jwtToken": token,
+	})
 }
 
 func Hello (c *fiber.Ctx)error {
-	return nil
+
+	return c.SendString("Hello World")
 }
 
 type User struct{
@@ -78,6 +140,11 @@ type User struct{
 }
 
 type SignupRequest struct{
+	Username string `json:"username"`
+	Password string `json:"password"`
+}
+
+type LoginRequest struct{
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
@@ -258,6 +325,8 @@ type Person struct{
 	Id int `json:"id"`
 	Name string `json:"name"`
 }
+
+
 
 // enum WorkStatus {
 // 	task=1,
